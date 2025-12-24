@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+#include <dt-bindings/zmk/pointing.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
@@ -24,6 +25,15 @@
         adjust_layer {
             if-layers = <6 7>;
             then-layer = <8>;
+        };
+    };	
+	
+	behaviors {
+        mousescroll: mousescroll {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+			tap-ms = <20>;
         };
     };
 
@@ -49,7 +59,7 @@
                                                                &kp ENTER  &kp RIGHT  &kp UP_ARROW   &kp LEFT  &kp DOWN
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&mousescroll &inc_dec_kp PG_UP PG_DN>;
         };
 
         coding {
